@@ -3,14 +3,17 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PoModule } from '@po-ui/ng-components';
+import { PoFieldModule, PoModule } from '@po-ui/ng-components';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { PoTemplatesModule } from '@po-ui/ng-templates';
+import { SelectComponent } from './shared/select/select.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SelectComponent
   ],
   imports: [
     BrowserModule,
@@ -18,7 +21,10 @@ import { PoTemplatesModule } from '@po-ui/ng-templates';
     PoModule,
     HttpClientModule,
     RouterModule.forRoot([]),
-    PoTemplatesModule
+    PoTemplatesModule,
+    FormsModule,
+    ReactiveFormsModule,
+    PoFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]
