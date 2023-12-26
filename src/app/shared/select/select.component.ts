@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { PoFieldModule } from '@po-ui/ng-components';
-import { ICommonType } from 'src/app/models/common.models';
+import { ICommonType } from 'src/app/models/common.model';
 
 @Component({
   selector: 'app-select',
