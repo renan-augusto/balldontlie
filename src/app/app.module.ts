@@ -10,12 +10,17 @@ import { PoTemplatesModule } from '@po-ui/ng-templates';
 import { SelectComponent } from './shared/select/select.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './pages/home/home.component';
+import { PoWidgetModule } from '@po-ui/ng-components';
+import { CardComponent } from './shared/card/card.component';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     SelectComponent,
-    HomeComponent
+    HomeComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +31,8 @@ import { HomeComponent } from './pages/home/home.component';
     PoTemplatesModule,
     FormsModule,
     ReactiveFormsModule,
-    PoFieldModule
+    PoFieldModule,
+    PoWidgetModule
   ],
   providers: [],
   bootstrap: [AppComponent]
