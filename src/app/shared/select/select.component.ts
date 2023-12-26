@@ -10,4 +10,11 @@ import { ICommonType } from 'src/app/models/common.models';
 export class SelectComponent {
   @Input() title: string = '';
   @Input() options: ICommonType[] = []
+
+  constructor() {}
+
+  ngOnInit(): void {
+
+  }
+
 }
