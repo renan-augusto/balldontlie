@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SelectComponent } from './select.component';
 import { PoModule } from '@po-ui/ng-components';
-import { ICommonType } from 'src/app/models/common.models';
+import { ICommonType } from 'src/app/models/common.model';
 
 describe('SelectComponent', () => {
   let component: SelectComponent;
