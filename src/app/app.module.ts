@@ -9,11 +9,13 @@ import { RouterModule } from '@angular/router';
 import { PoTemplatesModule } from '@po-ui/ng-templates';
 import { SelectComponent } from './shared/select/select.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SelectComponent
+    SelectComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
