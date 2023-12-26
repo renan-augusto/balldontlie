@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ICommonType } from 'src/app/models/common.models';
+import { ICommonType } from 'src/app/models/common.model';
 
 @Component({
   selector: 'app-home',
