@@ -16,4 +16,13 @@ export class TeamsService {
   getTeams() {
     return this.http.get<ResultWapper<Teams>>(`${this.baseUrl}teams`);
   }
+
+  getPagination(page: any, perPage: any) {
+    return this.http.get<ResultWapper<Teams>>(`${this.baseUrl}teams/?page=${page}&per_page=${perPage}`);
+  }
+
+  getTeamById(id: any) {
+    return this.http.get<Teams>(`${this.baseUrl}teams/${id}`);
+  }
+
 }
