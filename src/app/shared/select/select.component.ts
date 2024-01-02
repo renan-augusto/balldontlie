@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { PoFieldModule } from '@po-ui/ng-components';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { PoFieldModule, PoSelectOption } from '@po-ui/ng-components';
 import { ICommonType } from 'src/app/models/common.model';
 
 @Component({
@@ -9,12 +9,24 @@ import { ICommonType } from 'src/app/models/common.model';
 })
 export class SelectComponent {
   @Input() title: string = '';
-  @Input() options: ICommonType[] = []
+  @Input() options: ICommonType[] = [];
+  @Input() placeholder?: string;
+  @Input() required: boolean = false;
+  @Input() isreadonly: boolean = false;
+  @Input() isdisabled: boolean = false;
+  @Input() tooltip?: string;
+
+  @Output() selected = new EventEmitter<ICommonType>();
 
   constructor() {}
 
   ngOnInit(): void {
 
+  }
+
+  onSelectionChange(selectedOption: any): void {
+    const selectedValue = selectedOption.value as ICommonType;
+    this.selected.emit(selectedOption);
   }
 
 }
