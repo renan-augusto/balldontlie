@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SelectComponent } from './select.component';
 import { PoModule } from '@po-ui/ng-components';
 import { ICommonType } from 'src/app/models/common.model';
+import { compileComponentFromMetadata } from '@angular/compiler';
 
 describe('SelectComponent', () => {
   let component: SelectComponent;
@@ -37,5 +38,44 @@ describe('SelectComponent', () => {
 
     fixture.detectChanges();
     expect(component.options).toEqual(options);
+  });
+
+  it('should set placeholder via @input', () => {
+    const placeholder: string = 'mockedplaceholder';
+    component.placeholder = placeholder;
+
+    fixture.detectChanges();
+    expect(component.placeholder).toEqual(placeholder);
+  });
+
+  it('should initialize @input isRequired as false', () => {
+    expect(component.required).toBeFalse();
+  });
+
+  it('should change @input required to true when the input is provided', () => {
+    const required: boolean = true;
+    component.required = required;
+
+    expect(component.required).toBeTrue();
+  });
+
+  it('should initialize @input isDisable as false', () => {
+    expect(component.isdisabled).toBeFalse();
+  });
+
+  it('should change @input isDisable to true when the input is provided', () => {
+     const isDisable: boolean = true;
+     component.isdisabled = isDisable;
+     expect(component.isdisabled).toBeTrue();
+  })
+
+  it('should initialize @input isReadOnly as false', () => {
+    expect(component.isdisabled).toBeFalse();
+  });
+
+  it('should change @input readonly to true when the input is provided', () => {
+    const readonly: boolean = true;
+    component.isreadonly = readonly;
+    expect(component.isreadonly).toBeTrue();
   });
 });
