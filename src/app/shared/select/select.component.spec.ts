@@ -72,17 +72,17 @@ describe('SelectComponent', () => {
   });
 
   it('should initialize @input isDisable as false', () => {
-    expect(component.isdisabled).toBeFalse();
+    expect(component.isDisabled).toBeFalse();
   });
 
   it('should change @input isDisable to true when the input is provided', () => {
      const isDisable: boolean = true;
-     component.isdisabled = isDisable;
-     expect(component.isdisabled).toBeTrue();
+     component.isDisabled = isDisable;
+     expect(component.isDisabled).toBeTrue();
   })
 
   it('should initialize @input isReadOnly as false', () => {
-    expect(component.isdisabled).toBeFalse();
+    expect(component.isDisabled).toBeFalse();
   });
 
   it('should change @input readonly to true when the input is provided', () => {
@@ -90,4 +90,51 @@ describe('SelectComponent', () => {
     component.isreadonly = readonly;
     expect(component.isreadonly).toBeTrue();
   });
+
+  it('should initialize multipleselect input as false', () => {
+    expect(component.multiselect).toBeFalse();
+  });
+
+  it('should change @input multipleselect to true when the input is provided', () => {
+    const multiselect = true;
+    component.multiselect = multiselect;
+    expect(component.multiselect).toBeTrue();
+  });
+
+  it('should initialize showRequired as false', () => {
+    expect(component.showRequired).toBeFalse();
+  });
+
+  it('should change @input to true when the showRequired is provided', () => {
+    const showRequired = true;
+    expect(component.showRequired).toBeTrue();
+  });
+
+  it('should initialize hideSelectAll as false', () => {
+    expect(component.hideSelectAll).toBeFalse();
+  });
+
+  it('should change @input hideSelectAll when the input is provided', () => {
+    const hideSelectAll = true;
+    expect(component.hideSelectAll).toBeTrue();
+  });
+
+  it('should initiliaze search as false', () => {
+    expect(component.search).toBeFalse();
+  });
+
+  it('should change @input search when the value is provided',  () => {
+    const search: boolean = true;
+    expect(component.search).toBeTrue();
+  });
+
+  it('should initialize sort as false', () => {
+    expect(component.sort).toBeFalse();
+  });
+
+  it('should change @input sort when the value is provided', () => {
+    const sort: boolean = true;
+    expect(component.sort).toBeTrue();
+  });
+
 });
