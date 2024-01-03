@@ -1,2 +1,4 @@
-<po-select name="select" [p-label]="title" [p-options]="options" [p-placeholder]="placeholder" [p-required]="required" [p-readonly]="isreadonly" [p-disabled]="isdisabled" (selected)="onSelectionChange($event)">
+<po-select *ngIf="!multiselect" name="select" [p-label]="title" [p-options]="options" [p-placeholder]="placeholder" [p-required]="required" [p-readonly]="isreadonly" [p-disabled]="isDisabled" (selected)="onSelectionChange($event)">
 </po-select>
+
+<po-multiselect *ngIf="multiselect" [p-disabled]="isDisabled" [p-label]="title" [p-options]="options" [p-placeholder]="placeholder" [p-required]="required" [p-show-required]="showRequired" [p-hide-select-all]="hideSelectAll" [p-hide-search]="search" [p-sort]="sort"></po-multiselect>

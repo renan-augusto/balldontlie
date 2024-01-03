@@ -13,8 +13,14 @@ export class SelectComponent {
   @Input() placeholder?: string;
   @Input() required: boolean = false;
   @Input() isreadonly: boolean = false;
-  @Input() isdisabled: boolean = false;
+  @Input() isDisabled: boolean = false;
   @Input() tooltip?: string;
+  @Input() multiselect: boolean = false;
+  @Input() showRequired: boolean = false;
+  @Input() hideSelectAll: boolean = false;
+  @Input() search: boolean = false;
+  @Input() sort: boolean = false;
+
 
   @Output() selected = new EventEmitter<ICommonType>();
 
