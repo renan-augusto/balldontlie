@@ -12,6 +12,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './pages/home/home.component';
 import { PoWidgetModule } from '@po-ui/ng-components';
 import { CardComponent } from './shared/card/card.component';
+import { SearchComponent } from './shared/search/search.component';
+import { PoSearchModule } from '@po-ui/ng-components';
 
 
 
@@ -20,7 +22,8 @@ import { CardComponent } from './shared/card/card.component';
     AppComponent,
     SelectComponent,
     HomeComponent,
-    CardComponent
+    CardComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,8 @@ import { CardComponent } from './shared/card/card.component';
     FormsModule,
     ReactiveFormsModule,
     PoFieldModule,
-    PoWidgetModule
+    PoWidgetModule,
+    PoSearchModule
   ],
   providers: [],
   bootstrap: [AppComponent]
