@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PoFieldModule, PoModule } from '@po-ui/ng-components';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { PoTemplatesModule } from '@po-ui/ng-templates';
 import { SelectComponent } from './shared/select/select.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -14,6 +14,9 @@ import { PoWidgetModule } from '@po-ui/ng-components';
 import { CardComponent } from './shared/card/card.component';
 import { SearchComponent } from './shared/search/search.component';
 import { PoSearchModule } from '@po-ui/ng-components';
+import { MenuComponent } from './shared/menu/menu.component';
+import { PoMenuModule } from '@po-ui/ng-components';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
@@ -23,7 +26,8 @@ import { PoSearchModule } from '@po-ui/ng-components';
     SelectComponent,
     HomeComponent,
     CardComponent,
-    SearchComponent
+    SearchComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +40,10 @@ import { PoSearchModule } from '@po-ui/ng-components';
     ReactiveFormsModule,
     PoFieldModule,
     PoWidgetModule,
-    PoSearchModule
+    PoSearchModule,
+    PoMenuModule,
+    RouterModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
