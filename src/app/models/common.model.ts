@@ -13,3 +13,8 @@ export interface ICommonType {
     label: string;
     value: string | ICommonType;
 }
+
+export interface IMenuItem {
+    label: string;
+    link: string;
+}
