@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IMenuItem } from 'src/app/models/common.model';
+import { PoMenuItem } from '@po-ui/ng-components';
 
 @Component({
   selector: 'app-menu',
@@ -7,10 +7,12 @@ import { IMenuItem } from 'src/app/models/common.model';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent {  
-  menuItems: IMenuItem[] = [
-    {label: 'Jogadores', link: ''},
-    {label: 'Franquias', link: ''}
-  ];
+
+  menuItems: Array<PoMenuItem> = [
+    {label: 'Jogadores', icon: 'po-icon-star', shortLabel: 'Jogadores'},
+    {label: 'Franquias', icon: 'po-icon po-icon-world', shortLabel: 'Franquias'}
+  ]
+
   
   ngOnInit() {
   }

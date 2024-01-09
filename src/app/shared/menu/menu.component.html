@@ -1,1 +1,8 @@
-<po-menu [p-menus]="menuItems"></po-menu>
+<div class="po-wrapper">
+    <po-menu [p-collapsed]="true" [p-menus]="menuItems" class="po-mr-2">
+        <div *p-menu-header-template class="po-p-2 po-font-title">
+            <p>Ball don-t lie</p>
+            <p>Single Page Application</p>
+        </div>
+    </po-menu>
+</div>
