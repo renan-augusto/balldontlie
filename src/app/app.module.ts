@@ -17,6 +17,8 @@ import { PoSearchModule } from '@po-ui/ng-components';
 import { MenuComponent } from './shared/menu/menu.component';
 import { PoMenuModule } from '@po-ui/ng-components';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PlayersComponent } from './pages/players/players.component';
+import { FranchisesComponent } from './pages/franchises/franchises.component';
 
 
 
@@ -27,7 +29,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     HomeComponent,
     CardComponent,
     SearchComponent,
-    MenuComponent
+    MenuComponent,
+    PlayersComponent,
+    FranchisesComponent
   ],
   imports: [
     BrowserModule,
