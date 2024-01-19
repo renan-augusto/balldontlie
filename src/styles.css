@@ -1,1 +1,6 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
+
+.po-menu-list {
+    white-space: nowrap !important;
+    padding-left: 0 !important;
+}
