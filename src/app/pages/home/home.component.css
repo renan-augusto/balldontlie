@@ -1,0 +1,21 @@
+.welcome-container {
+    margin-left: 4rem;
+}
+
+.title-container {
+    display: flex;
+    justify-content: center;
+}
+
+.video-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-container{
+    display: flex;
+    margin-top: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
