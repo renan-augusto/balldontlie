@@ -1,27 +1,27 @@
-# BallDontLie
+# Ball don't lie API Consumer
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.2.
+This project is a web application that consumes the Ball don't lie API (https://app.balldontlie.io) , allowing users to search for information about players and farnchises from the NBA.
 
-## Development server
+## Technologies Used
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+The project was developed using the following technologies:
 
-## Code scaffolding
+- Angular: A development framework for creating web applications.
+- TypeScript: A superset of the JavaScript programming language that enhances code productivity and reliability.
+- PO UI: A set of ready-to-use components and styles for creating attractive user interfaces.
+- Bootstrap: An open-source library that simplifies the development of responsive user interfaces.
+- Ball don't lie API: The Ball don't lie API that provides information about elements from the NBA.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## How to Run the Project
 
-## Build
+To run the project, follow these steps:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. Make sure you have [Node.js](https://nodejs.org/) installed on your system.
 
-## Running unit tests
+2. Clone this repository to your local machine or download the source code.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+3. Open your terminal and navigate to the project directory.
 
-## Running end-to-end tests
+4. Navigate to the "src" folder (swSpa\src).
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+5. If you are running it for the first time, execute the npm install command.
