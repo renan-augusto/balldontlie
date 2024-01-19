@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { PoMenuItem } from '@po-ui/ng-components';
 
 @Component({
@@ -6,14 +7,21 @@ import { PoMenuItem } from '@po-ui/ng-components';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent {  
+export class MenuComponent {
+  
+  menuItemSelected!: string;
 
   menuItems: Array<PoMenuItem> = [
-    {label: 'Jogadores', icon: 'po-icon-star', shortLabel: 'Jogadores'},
-    {label: 'Franquias', icon: 'po-icon po-icon-world', shortLabel: 'Franquias'}
+    {label: 'Jogadores', icon: 'po-icon-star', shortLabel: 'Jogadores', action: () => this.navigateTo('players')},
+    {label: 'Franquias', icon: 'po-icon po-icon-world', shortLabel: 'Franquias', action: () => this.navigateTo('franchises')}
   ]
 
-  
+  constructor(private _router: Router) {}
+
+  private navigateTo(route: string): void {
+    this._router.navigate([route]);
+  }
+
   ngOnInit() {
   }
   
