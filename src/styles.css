@@ -1,6 +1,17 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
+@import './sizes.css';
+@import './colors.css';
 
 .po-menu-list {
     white-space: nowrap !important;
     padding-left: 0 !important;
+}
+
+@media screen and (max-width: 650px) {
+    .ml-4rem {
+        margin-left: 0;
+    }
+    .ml-1rem {
+        margin-left: 0;
+    }
 }
