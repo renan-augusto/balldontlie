@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { catchError } from 'rxjs';
+import { Subscription, catchError } from 'rxjs';
 import { TeamsService } from 'src/app/core/teams.service';
 import { ICommonType, ResultWapper } from 'src/app/models/common.model';
 import { Teams } from 'src/app/models/teams.model';
@@ -15,6 +15,7 @@ export class FranchisesComponent implements OnInit {
 
   franchises: Teams[] = [];
   shouldShowProgress: boolean = true;
+  private teamsSubscription: Subscription | undefined
 
   ngOnInit(): void {
     this.getTeams();
@@ -22,9 +23,7 @@ export class FranchisesComponent implements OnInit {
 
   getTeams() {
 
-    const teamsObservable = this._franchisesService.getTeams();
-
-    teamsObservable.pipe(
+    this.teamsSubscription = this._franchisesService.getTeams().pipe(
       catchError( error =>  {
         console.error('Error during the search of franchises', error);
         return []
@@ -38,7 +37,12 @@ export class FranchisesComponent implements OnInit {
         console.error('Error during the recovery of teams');
       }
     });
+  }
 
+  ngOnDestroy(): void {
+    if(this.teamsSubscription) {
+      this.teamsSubscription.unsubscribe();
+    }
   }
 
 
