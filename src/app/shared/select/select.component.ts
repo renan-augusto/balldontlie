@@ -9,7 +9,7 @@ import { ICommonType } from 'src/app/models/common.model';
 })
 export class SelectComponent {
   @Input() title: string = '';
-  @Input() options: ICommonType[] = [];
+  @Input() options: PoSelectOption[] = [];
   @Input() placeholder?: string;
   @Input() required: boolean = false;
   @Input() isreadonly: boolean = false;
@@ -22,7 +22,7 @@ export class SelectComponent {
   @Input() sort: boolean = false;
 
 
-  @Output() selected = new EventEmitter<ICommonType>();
+  @Output() selected = new EventEmitter<PoSelectOption>();
 
   constructor() {}
 
@@ -30,8 +30,7 @@ export class SelectComponent {
 
   }
 
-  onSelectionChange(selectedOption: any): void {
-    const selectedValue = selectedOption.value as ICommonType;
+  onSelectionChange(selectedOption: PoSelectOption): void {
     this.selected.emit(selectedOption);
   }
 
