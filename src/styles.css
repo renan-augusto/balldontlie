@@ -2,6 +2,10 @@
 @import './sizes.css';
 @import './colors.css';
 
+.po-menu {
+    z-index: 99;
+}
+
 .po-menu-list {
     white-space: nowrap !important;
     padding-left: 0 !important;
