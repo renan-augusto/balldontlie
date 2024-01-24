@@ -1,1 +1,21 @@
-<p>franchises works!</p>
+<div class="ml-4rem">
+
+    <div class="loading-container" *ngIf="shouldShowProgress">
+        <po-loading-overlay p-text="Carregando"></po-loading-overlay>
+    </div>
+
+    <div class="title-container">
+        <h1 class="po-font-title">Franquias NBA</h1>
+    </div>
+
+    <div class="select-container">
+        <app-select [options]="franchisesOptions" placeholder="Selecione uma franquia" title="Franquias" (selected)="onChangeFilter($event)"></app-select>
+    </div>
+
+    <section class="card-container">
+        <div *ngFor="let f of franchises">
+            <app-card [title]="f.full_name" width="200" [height]=250></app-card>
+        </div>
+    </section>
+
+</div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PoSelectOption } from '@po-ui/ng-components';
 import { Subscription, catchError } from 'rxjs';
 import { TeamsService } from 'src/app/core/teams.service';
 import { ICommonType, ResultWapper } from 'src/app/models/common.model';
@@ -14,7 +15,10 @@ export class FranchisesComponent implements OnInit {
   constructor(private _franchisesService: TeamsService) {}
 
   franchises: Teams[] = [];
+  franchisesBKP: Teams[] = [];
+  franchisesOptions: PoSelectOption[] = [];
   shouldShowProgress: boolean = true;
+  filterValue: any;
   private teamsSubscription: Subscription | undefined
 
   ngOnInit(): void {
@@ -30,13 +34,34 @@ export class FranchisesComponent implements OnInit {
       })
     ).subscribe((res: ResultWapper<Teams>) => {
       if(res.meta) {
+
         this.franchises = res.data;
-        this.shouldShowProgress = false;
-        console.log(this.franchises);
+        this.franchisesBKP = this.franchises;
+        this.getOptions(this.franchises);
+          this.shouldShowProgress = false;
+
       } else {
+
         console.error('Error during the recovery of teams');
+
       }
     });
+  }
+
+  getOptions(franchises: any) {
+    if(this.franchises.length > 0) {
+      this.franchisesOptions = this.franchises.map( (a) => ({
+        label:a.name,
+        value: a.id
+      }));
+      this.franchisesOptions
+    } else {
+      return;
+    }
+  }
+
+  onChangeFilter(event: PoSelectOption): void {
+    this.filterValue = event;
   }
 
   ngOnDestroy(): void {
