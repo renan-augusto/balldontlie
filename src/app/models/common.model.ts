@@ -11,5 +11,5 @@ export interface ResultWapper<T> {
 
 export interface ICommonType {
     label: string;
-    value: string | ICommonType;
+    value: string | number | ICommonType;
 }

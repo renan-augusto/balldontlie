@@ -7,14 +7,20 @@
     <div class="title-container">
         <h1 class="po-font-title">Franquias NBA</h1>
     </div>
+    <div class="filter-container">
+        <div class="select-container">
+            <app-select [options]="franchisesOptions" placeholder="Selecione uma franquia" title="Franquias" (selected)="onChangeFilter($event)" (change)="filterOptions()"></app-select>
+        </div>
 
-    <div class="select-container">
-        <app-select [options]="franchisesOptions" placeholder="Selecione uma franquia" title="Franquias" (selected)="onChangeFilter($event)"></app-select>
+        <div>
+            <po-button p-label="Limpar filtro" (click)="getTeams()"></po-button>
+        </div>
     </div>
+
 
     <section class="card-container">
         <div *ngFor="let f of franchises">
-            <app-card [title]="f.full_name" width="200" [height]=250></app-card>
+            <app-card [title]="f.full_name" width="300" [height]=250></app-card>
         </div>
     </section>
 
