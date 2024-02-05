@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
 export class CardComponent {
   @Input() height: number = 300;
   @Input() disable: boolean = false;
-  @Input() title!: string;
+  @Input() title: string = '';
   // @Input() width: string = '200px';
 
   private _width: string = '200';
