@@ -15,10 +15,9 @@ export class FranchisesComponent implements OnInit {
   constructor(private _franchisesService: TeamsService) {}
 
   franchises: Teams[] = [];
-  franchisesBKP: Teams[] = [];
   franchisesOptions: PoSelectOption[] = [];
   shouldShowProgress: boolean = true;
-  filterValue: any;
+  filterValue: string | number | PoSelectOption = "";
   private teamsSubscription: Subscription | undefined
 
   ngOnInit(): void {
@@ -26,7 +25,6 @@ export class FranchisesComponent implements OnInit {
   }
 
   getTeams() {
-
     this.teamsSubscription = this._franchisesService.getTeams().pipe(
       catchError( error =>  {
         console.error('Error during the search of franchises', error);
@@ -36,9 +34,8 @@ export class FranchisesComponent implements OnInit {
       if(res.meta) {
 
         this.franchises = res.data;
-        this.franchisesBKP = this.franchises;
         this.getOptions(this.franchises);
-          this.shouldShowProgress = false;
+        this.shouldShowProgress = false;
 
       } else {
 
@@ -62,6 +59,20 @@ export class FranchisesComponent implements OnInit {
 
   onChangeFilter(event: PoSelectOption): void {
     this.filterValue = event;
+  }
+
+  filterOptions() {
+    this.shouldShowProgress = true;
+    let newList = this._franchisesService.getTeamById(this.filterValue).pipe(
+      catchError( error =>  {
+        this.shouldShowProgress = false;
+        console.error('Error during the search of franchises', error);
+        return []
+      })
+    ).subscribe((res: Teams) => {
+      this.shouldShowProgress = false;
+      this.franchises = [res];
+    })
   }
 
   ngOnDestroy(): void {

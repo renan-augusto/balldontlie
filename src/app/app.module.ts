@@ -49,7 +49,7 @@ import { FranchisesComponent } from './pages/franchises/franchises.component';
     RouterModule,
     FontAwesomeModule,
     PoModalModule,
-    PoLoadingModule
+    PoLoadingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
