@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PoSelectOption } from '@po-ui/ng-components';
+import { PoDynamicViewField, PoSelectOption } from '@po-ui/ng-components';
 import { Subscription, catchError } from 'rxjs';
 import { TeamsService } from 'src/app/core/teams.service';
 import { ICommonType, ResultWapper } from 'src/app/models/common.model';
@@ -20,6 +20,18 @@ export class FranchisesComponent implements OnInit {
   filterValue: string | number | PoSelectOption = "";
   private teamsSubscription: Subscription | undefined
 
+  fields: PoDynamicViewField[] = [
+    {property: 'id', label: 'ID', divider: 'Dados dos times', gridColumns: 2, order: 1},
+    {property: 'abbreviation', label: 'Nome Abreviado', gridColumns: 2},
+    {property: 'city', label: 'Cidade', gridColumns: 8},
+    {property: 'conference', label: 'Conferência', divider:'Conferência', gridColumns: 2, order: 1},
+    {property: 'division', label: 'Divisão de conferência', gridColumns: 4},
+    {property: 'full_name', label: 'Nome Completo', gridColumns: 4},
+    {property: 'name', label: 'Nome', gridColumns: 2}
+  ];
+
+
+
   ngOnInit(): void {
     this.getTeams();
   }
@@ -36,6 +48,7 @@ export class FranchisesComponent implements OnInit {
         this.franchises = res.data;
         this.getOptions(this.franchises);
         this.shouldShowProgress = false;
+        console.log(this.franchises);
 
       } else {
 

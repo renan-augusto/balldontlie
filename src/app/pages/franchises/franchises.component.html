@@ -20,7 +20,7 @@
 
     <section class="card-container">
         <div *ngFor="let f of franchises">
-            <app-card [title]="f.full_name" width="300" [height]=250></app-card>
+            <app-card [title]="f.full_name" [value]="f" [fields]="fields"></app-card>
         </div>
     </section>
 
