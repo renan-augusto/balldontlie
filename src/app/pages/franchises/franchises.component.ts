@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PoSelectOption } from '@po-ui/ng-components';
+import { PoDynamicViewField, PoSelectOption } from '@po-ui/ng-components';
 import { Subscription, catchError } from 'rxjs';
 import { TeamsService } from 'src/app/core/teams.service';
 import { ICommonType, ResultWapper } from 'src/app/models/common.model';
@@ -15,20 +15,76 @@ export class FranchisesComponent implements OnInit {
   constructor(private _franchisesService: TeamsService) {}
 
   franchises: Teams[] = [];
+  franchisesForOptions: Teams[] =[];
   franchisesOptions: PoSelectOption[] = [];
   shouldShowProgress: boolean = true;
   filterValue: string | number | PoSelectOption = "";
-  private teamsSubscription: Subscription | undefined
+  page: number = 1;
+  perPage: number = 5;
+  private teamsSubscription: Subscription | undefined;
+  private teamsOptionsSubscription: Subscription | undefined;
+
+  fields: PoDynamicViewField[] = [
+    {property: 'conference', label: 'Conferência', divider:'Conferência', gridColumns: 2, order: 1},
+    {property: 'city', label: 'Cidade', gridColumns: 2},
+    {property: 'division', label: 'Divisão de conferência', gridColumns: 2},
+    {property: 'full_name', label: 'Nome Completo', divider:'Franquia', gridColumns: 2},
+    {property: 'abbreviation', label: 'Nome Abreviado', gridColumns: 2},
+  ];
+
+
 
   ngOnInit(): void {
-    this.getTeams();
+    this.getTeamsPaginated(this.page, this.perPage);
+    this.getFullTeamsOptions();
+  }
+
+  getTeamsPaginated(page: number, per_page: number) {
+    this.teamsSubscription = 
+    this._franchisesService.getPagination(page, per_page).pipe(
+      catchError( error => {
+        console.error('Error during the search of franchises', error);
+        return [];
+      })
+    ).subscribe((res: ResultWapper<Teams>) => {
+      if(res.meta) {
+        this.franchises = res.data;
+        this.shouldShowProgress = false;
+      } else  {
+        console.error('Error during the recovery of teams');
+      }
+    });
+  }
+
+  getFullTeamsOptions() {
+    this.teamsOptionsSubscription = 
+    this._franchisesService.getTeams().pipe(
+      catchError( error =>  {
+        console.error('Error during the search of franchises', error);
+        return [];
+      })
+    ).subscribe((res: ResultWapper<Teams>) => {
+      if(res.meta) {
+
+        let franchisesFull = res.data;
+        console.log(franchisesFull);
+        this.getOptions(franchisesFull);
+        this.shouldShowProgress = false;
+
+      } else {
+
+        console.error('Error during the recovery of teams');
+
+      }
+    });
   }
 
   getTeams() {
-    this.teamsSubscription = this._franchisesService.getTeams().pipe(
+    this.teamsSubscription = 
+    this._franchisesService.getTeams().pipe(
       catchError( error =>  {
         console.error('Error during the search of franchises', error);
-        return []
+        return [];
       })
     ).subscribe((res: ResultWapper<Teams>) => {
       if(res.meta) {
@@ -46,19 +102,23 @@ export class FranchisesComponent implements OnInit {
   }
 
   getOptions(franchises: any) {
-    if(this.franchises.length > 0) {
-      this.franchisesOptions = this.franchises.map( (a) => ({
-        label:a.name,
+    if(franchises.length > 0) {
+      this.franchisesOptions = franchises.map((a: any) => ({
+        label: a.name,
         value: a.id
       }));
-      this.franchisesOptions
+      return this.franchisesOptions;
     } else {
-      return;
+      return
     }
   }
 
   onChangeFilter(event: PoSelectOption): void {
     this.filterValue = event;
+  }
+
+  onClearFilter() {
+    this.getTeamsPaginated(1, 5);
   }
 
   filterOptions() {
@@ -74,6 +134,25 @@ export class FranchisesComponent implements OnInit {
       this.franchises = [res];
     })
   }
+
+  loadMore() {
+    this.page += 1;
+    this.shouldShowProgress = true;
+
+    this._franchisesService.getPagination(this.page, this.perPage)
+      .pipe(
+        catchError(error => {
+          console.error('Error when getting page content', error);
+          return []
+        })
+      )
+      .subscribe( (res: any) => {
+        const pageContent: Teams[] = res.data;
+        this.franchises = this.franchises.concat(pageContent);
+        this.shouldShowProgress = false;
+      })
+  }
+
 
   ngOnDestroy(): void {
     if(this.teamsSubscription) {

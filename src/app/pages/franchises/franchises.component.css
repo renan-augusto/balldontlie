@@ -3,8 +3,7 @@
 }
 
 .card-container {
-    display: flex;
-    flex-wrap: wrap;
+    width: fit-content;
 }
 
 .clean-filter {
