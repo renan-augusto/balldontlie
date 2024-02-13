@@ -4,16 +4,16 @@
         <po-loading-overlay p-text="Carregando"></po-loading-overlay>
     </div>
 
-    <div class="title-container">
+    <div class="title-container po-mt-2 po-mb-2 po-ml-2 po-mr-2">
         <h1 class="po-font-title">Franquias NBA</h1>
     </div>
-    <div class="filter-container">
+    <div class="filter-container po-mt-2 po-mb-2 po-ml-2 po-mr-2">
         <div class="select-container">
             <app-select [options]="franchisesOptions" placeholder="Selecione uma franquia" title="Franquias" (selected)="onChangeFilter($event)" (change)="filterOptions()"></app-select>
         </div>
 
         <div>
-            <po-button p-label="Limpar filtro" (click)="getTeams()"></po-button>
+            <po-button p-label="Limpar filtros" (click)="onClearFilter()"></po-button>
         </div>
     </div>
 
@@ -24,4 +24,7 @@
         </div>
     </section>
 
+    <div class="po-mt-2 po-mb-2 po-ml-2 po-mr-2" *ngIf="franchises.length > 1">
+        <po-button p-size="large" p-label="Carregar mais" (p-click)="loadMore()"></po-button>
+    </div>
 </div>
