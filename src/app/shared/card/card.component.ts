@@ -1,4 +1,7 @@
 import { Component, Input } from '@angular/core';
+import { PoDynamicField } from '@po-ui/ng-components/lib/components/po-dynamic/po-dynamic-field.interface';
+import { Players } from 'src/app/models/players.model';
+import { Teams } from 'src/app/models/teams.model';
 
 @Component({
   selector: 'app-card',
@@ -9,7 +12,8 @@ export class CardComponent {
   @Input() height: number = 300;
   @Input() disable: boolean = false;
   @Input() title: string = '';
-  // @Input() width: string = '200px';
+  @Input() fields: PoDynamicField[] = [];
+  @Input() value: Object = {}
 
   private _width: string = '200';
 
