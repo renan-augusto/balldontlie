@@ -9,7 +9,6 @@ import { Teams } from 'src/app/models/teams.model';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent {
-  @Input() height: number = 300;
   @Input() disable: boolean = false;
   @Input() title: string = '';
   @Input() fields: PoDynamicField[] = [];
