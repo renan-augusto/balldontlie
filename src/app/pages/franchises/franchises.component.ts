@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PoDynamicViewField, PoSelectOption } from '@po-ui/ng-components';
 import { Subscription, catchError } from 'rxjs';
 import { TeamsService } from 'src/app/core/teams.service';
-import { ICommonType, ResultWapper } from 'src/app/models/common.model';
+import { ICommonType, IResultWapperGeneral, ResultWapper } from 'src/app/models/common.model';
 import { Teams } from 'src/app/models/teams.model';
 
 @Component({
@@ -35,7 +35,8 @@ export class FranchisesComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getTeamsPaginated(this.page, this.perPage);
+    // this.getTeamsPaginated(this.page, this.perPage);
+    this.getTeams();
     this.getFullTeamsOptions();
   }
 
@@ -43,6 +44,7 @@ export class FranchisesComponent implements OnInit {
     this.teamsSubscription = 
     this._franchisesService.getPagination(page, per_page).pipe(
       catchError( error => {
+        this.shouldShowProgress = false;
         console.error('Error during the search of franchises', error);
         return [];
       })
@@ -60,11 +62,12 @@ export class FranchisesComponent implements OnInit {
     this.teamsOptionsSubscription = 
     this._franchisesService.getTeams().pipe(
       catchError( error =>  {
+        this.shouldShowProgress = false;
         console.error('Error during the search of franchises', error);
         return [];
       })
-    ).subscribe((res: ResultWapper<Teams>) => {
-      if(res.meta) {
+    ).subscribe((res: IResultWapperGeneral<Teams>) => {
+      if(res) {
 
         let franchisesFull = res.data;
         console.log(franchisesFull);
@@ -72,7 +75,7 @@ export class FranchisesComponent implements OnInit {
         this.shouldShowProgress = false;
 
       } else {
-
+        this.shouldShowProgress = false;
         console.error('Error during the recovery of teams');
 
       }
@@ -83,18 +86,19 @@ export class FranchisesComponent implements OnInit {
     this.teamsSubscription = 
     this._franchisesService.getTeams().pipe(
       catchError( error =>  {
+        this.shouldShowProgress = false;
         console.error('Error during the search of franchises', error);
         return [];
       })
-    ).subscribe((res: ResultWapper<Teams>) => {
-      if(res.meta) {
+    ).subscribe((res: IResultWapperGeneral<Teams>) => {
+      if(res) {
 
         this.franchises = res.data;
         this.getOptions(this.franchises);
         this.shouldShowProgress = false;
 
       } else {
-
+        this.shouldShowProgress = false;
         console.error('Error during the recovery of teams');
 
       }
@@ -129,9 +133,9 @@ export class FranchisesComponent implements OnInit {
         console.error('Error during the search of franchises', error);
         return []
       })
-    ).subscribe((res: Teams) => {
+    ).subscribe((res: any) => {
       this.shouldShowProgress = false;
-      this.franchises = [res];
+      this.franchises = [res.data];
     })
   }
 
@@ -142,6 +146,7 @@ export class FranchisesComponent implements OnInit {
     this._franchisesService.getPagination(this.page, this.perPage)
       .pipe(
         catchError(error => {
+          this.shouldShowProgress = false;
           console.error('Error when getting page content', error);
           return []
         })
