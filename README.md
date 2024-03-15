@@ -25,4 +25,7 @@ To run the project, follow these steps:
 4. Navigate to the "src" folder (swSpa\src).
 
 5. If you are running it for the first time, execute the npm install command.
-6. 
+
+6. After all dependencies are installed, run the npm run start command.
+
+7.Simply access the following address in your browser to use the application: http://localhost:4200/
