@@ -1,0 +1,6 @@
+{
+    "/api/v1/": {
+      "target": "https://www.balldontlie.io",
+      "secure": false
+    }
+  }
