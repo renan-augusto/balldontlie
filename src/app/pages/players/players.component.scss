@@ -1,0 +1,17 @@
+.players-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+    .title-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .search-container {
+        min-width: 25%;
+        max-width: 25%;
+    }
+}
+

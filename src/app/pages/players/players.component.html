@@ -1,1 +1,25 @@
-<p>players works!</p>
+<div class="ml-4rem">
+
+    <main class="players-container">
+        <div class="title-container po-mt-2 po-mb-2 po-ml-2 po-mr-2">
+            <h1 class="po-font-title">Jogadores NBA</h1>
+        </div>
+        
+        <div class="search-container">
+            <po-search 
+                (p-change-model)="onSearchEvent($event)"
+            ></po-search>
+        </div>
+
+        <section class="players-list-container">
+            <div *ngFor="let p of players">
+                <app-card
+                    [title]="p.last_name"
+                    [value]="p"
+                ></app-card>
+            </div>
+        </section>
+
+    </main>
+
+</div>
