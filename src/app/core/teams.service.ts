@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IResultWapperGeneral, ResultWapper } from '../models/common.model';
-import { Teams } from '../models/teams.model';
 import { environment } from 'src/environments/environment';
+import { ITeams } from '../models/teams.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,15 +19,15 @@ export class TeamsService {
 
 
   getTeams() {
-    return this.http.get<IResultWapperGeneral<Teams>>(`${this.baseUrl}teams`, {headers: this.header});
+    return this.http.get<IResultWapperGeneral<ITeams>>(`${this.baseUrl}teams`, {headers: this.header});
   }
 
   getPagination(page: any, perPage: any) {
-    return this.http.get<ResultWapper<Teams>>(`${this.baseUrl}teams/?next_cursor=${page}&per_page=${perPage}`, {headers: this.header});
+    return this.http.get<ResultWapper<ITeams>>(`${this.baseUrl}teams/?next_cursor=${page}&per_page=${perPage}`, {headers: this.header});
   }
 
   getTeamById(id: any) {
-    return this.http.get<Teams>(`${this.baseUrl}teams/${id}`, {headers: this.header});
+    return this.http.get<ITeams>(`${this.baseUrl}teams/${id}`, {headers: this.header});
   }
 
 }
