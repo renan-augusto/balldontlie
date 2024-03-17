@@ -1,12 +1,17 @@
-import { Teams } from "./teams.model";
+import { ITeams } from "./teams.model";
 
-export interface Players {
-    id: number;
-    first_name: string;
-    last_name: string;
-    position: string;
-    height_feet?: number;
-    height_inches?: number;
-    weight_pounds?: number;
-    team: Teams;
+export interface IPlayers {
+    id: number,
+    first_name: string,
+    last_name: string,
+    position: string,
+    height: string,
+    weight: string,
+    jersey_number: string,
+    college: string,
+    country: string,
+    draft_year: number,
+    draft_round: number,
+    draft_number: number,
+    team: ITeams
 }

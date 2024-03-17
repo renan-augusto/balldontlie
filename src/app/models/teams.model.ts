@@ -1,4 +1,4 @@
-export interface Teams {
+export interface ITeams {
     id: number;
     abreviation: string;
     city: string;

@@ -1,7 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { PoDynamicField } from '@po-ui/ng-components/lib/components/po-dynamic/po-dynamic-field.interface';
-import { Players } from 'src/app/models/players.model';
-import { Teams } from 'src/app/models/teams.model';
 
 @Component({
   selector: 'app-card',
