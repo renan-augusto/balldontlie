@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PoDynamicViewField, PoSelectOption } from '@po-ui/ng-components';
 import { Subscription, catchError } from 'rxjs';
 import { TeamsService } from 'src/app/core/teams.service';
-import { ICommonType, IResultWapperGeneral, ResultWapper } from 'src/app/models/common.model';
+import { IResultWapperGeneral, ResultWapper } from 'src/app/models/common.model';
+import { teamsFields } from 'src/app/models/fields.model';
 import { ITeams } from 'src/app/models/teams.model';
 
 @Component({
@@ -21,18 +22,10 @@ export class FranchisesComponent implements OnInit {
   filterValue: string | number | PoSelectOption = "";
   page: number = 1;
   perPage: number = 5;
+  fields: PoDynamicViewField[] = teamsFields;
+
   private teamsSubscription: Subscription | undefined;
   private teamsOptionsSubscription: Subscription | undefined;
-
-  fields: PoDynamicViewField[] = [
-    {property: 'conference', label: 'Conferência', divider:'Conferência', gridColumns: 2, order: 1},
-    {property: 'city', label: 'Cidade', gridColumns: 2},
-    {property: 'division', label: 'Divisão de conferência', gridColumns: 2},
-    {property: 'full_name', label: 'Nome Completo', divider:'Franquia', gridColumns: 2},
-    {property: 'abbreviation', label: 'Nome Abreviado', gridColumns: 2},
-  ];
-
-
 
   ngOnInit(): void {
     // this.getTeamsPaginated(this.page, this.perPage);
