@@ -3,7 +3,7 @@ import { PoDynamicViewField, PoSelectOption } from '@po-ui/ng-components';
 import { Subscription, catchError } from 'rxjs';
 import { TeamsService } from 'src/app/core/teams.service';
 import { ICommonType, IResultWapperGeneral, ResultWapper } from 'src/app/models/common.model';
-import { Teams } from 'src/app/models/teams.model';
+import { ITeams } from 'src/app/models/teams.model';
 
 @Component({
   selector: 'app-franchises',
@@ -14,8 +14,8 @@ export class FranchisesComponent implements OnInit {
 
   constructor(private _franchisesService: TeamsService) {}
 
-  franchises: Teams[] = [];
-  franchisesForOptions: Teams[] =[];
+  franchises: ITeams[] = [];
+  franchisesForOptions: ITeams[] =[];
   franchisesOptions: PoSelectOption[] = [];
   shouldShowProgress: boolean = true;
   filterValue: string | number | PoSelectOption = "";
@@ -48,7 +48,7 @@ export class FranchisesComponent implements OnInit {
         console.error('Error during the search of franchises', error);
         return [];
       })
-    ).subscribe((res: ResultWapper<Teams>) => {
+    ).subscribe((res: ResultWapper<ITeams>) => {
       if(res.meta) {
         this.franchises = res.data;
         this.shouldShowProgress = false;
@@ -66,7 +66,7 @@ export class FranchisesComponent implements OnInit {
         console.error('Error during the search of franchises', error);
         return [];
       })
-    ).subscribe((res: IResultWapperGeneral<Teams>) => {
+    ).subscribe((res: IResultWapperGeneral<ITeams>) => {
       if(res) {
 
         let franchisesFull = res.data;
@@ -90,7 +90,7 @@ export class FranchisesComponent implements OnInit {
         console.error('Error during the search of franchises', error);
         return [];
       })
-    ).subscribe((res: IResultWapperGeneral<Teams>) => {
+    ).subscribe((res: IResultWapperGeneral<ITeams>) => {
       if(res) {
 
         this.franchises = res.data;
@@ -152,7 +152,7 @@ export class FranchisesComponent implements OnInit {
         })
       )
       .subscribe( (res: any) => {
-        const pageContent: Teams[] = res.data;
+        const pageContent: ITeams[] = res.data;
         this.franchises = this.franchises.concat(pageContent);
         this.shouldShowProgress = false;
       })
