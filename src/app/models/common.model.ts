@@ -1,6 +1,7 @@
 export interface ResultWapper<T> {
     data: T[];
     meta: {
+        prev_cursor?: number,
         next_cursor?: number,
         per_page: number,
     };

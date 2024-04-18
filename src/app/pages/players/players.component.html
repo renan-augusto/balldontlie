@@ -1,26 +1,51 @@
-<div class="ml-4rem">
-
-    <main class="players-container">
+<div class="ml-4rem">  
+    <main class="players-container">  
         <div class="title-container po-mt-2 po-mb-2 po-ml-2 po-mr-2">
-            <h1 class="po-font-title">Jogadores NBA</h1>
-        </div>
-        
-        <div class="search-container">
-            <po-search 
-                (p-change-model)="onSearchEvent($event)"
-            ></po-search>
-        </div>
+        <h1 class="po-font-title">Jogadores NBA</h1>  </div>
 
-        <section class="players-list-container">
-            <div *ngFor="let p of players">
-                <app-card
+        <div class="search-container">  
+            <div class="search">  
+                <p>Buscar por Jogadores</p> 
+                <po-input  
+                class="search-container "
+                    name="inputSearch"
+                    [(ngModel)]="inputSearch"
+                    (p-change-model)="onSearchEvent($event)"
+                    p-placeholder="Escreva o nome do Jogador"
+                    (keyup.enter)="getSearch()"
+                ></po-input>
+            </div>  
+
+            <div class="buttons">
+                <div class="button-search">
+                    <po-button 
+                        p-label="buttonSearch" 
+                        (p-click)="getSearch()"
+                        p-label="Pesquisar"
+                        name="search-button"
+                    > </po-button>
+                </div>
+                
+                <div class="button-back" *ngIf="showBack">
+                    <po-button 
+                        p-label="buttonBack" 
+                        (p-click)="backhome()"
+                        p-label="Voltar"
+                        name="back-button"
+                    > </po-button>
+                </div>
+
+                
+            </div>
+        </div>  
+        <section class="players-list-container">  
+            <div *ngFor="let p of players"> 
+                <app-card 
                     [title]="p.first_name + ' ' + p.last_name"
                     [value]="p"
                     [fields]="fields"
                 ></app-card>
-            </div>
-        </section>
-
-    </main>
-
-</div>
+            </div>  
+        </section>  
+    </main>  
+</div> 

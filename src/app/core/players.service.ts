@@ -26,12 +26,16 @@ export class PlayersService {
   }
 
   getPlayersPaginated(next_cursor: number | string, per_page: number | string) {
-    return this.http.get<ResultWapper<IPlayers>>(`${this.baseUrl}players/?next_cursor=${next_cursor}&per_page=${per_page}`, {headers: this.header});
-  }
+    return this.http.get<ResultWapper<IPlayers>>(`${this.baseUrl}players/?next_cursor=${next_cursor}&per_page=${per_page}`, {
+      headers: this.header
+    })
+  };
 
-  searchPlayer(search: any) {
-    return this.http.get<ResultWapper<IPlayers>>(`${this.baseUrl}players/?search=${search}`, {headers: this.header});
-  }
+  searchPlayer(search: string) {
+    return this.http.get<ResultWapper<IPlayers>>(`${this.baseUrl}players/?search=${search}`, {
+      headers: this.header
+    })
+  };
 
   getPlayersByTeamsId(teamId: number) {
     return this.http.get<ResultWapper<IPlayers>>(`${this.baseUrl}players/?teams_ids[]=${teamId}`, {headers: this.header})
