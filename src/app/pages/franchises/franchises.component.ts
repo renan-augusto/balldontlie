@@ -18,7 +18,6 @@ export class FranchisesComponent implements OnInit {
   franchises: ITeams[] = [];
   franchisesForOptions: ITeams[] =[];
   franchisesOptions: PoSelectOption[] = [];
-  shouldShowProgress: boolean = true;
   filterValue: string | number | PoSelectOption = "";
   page: number = 1;
   perPage: number = 5;
@@ -37,14 +36,12 @@ export class FranchisesComponent implements OnInit {
     this.teamsSubscription = 
     this._franchisesService.getPagination(page, per_page).pipe(
       catchError( error => {
-        this.shouldShowProgress = false;
         console.error('Error during the search of franchises', error);
         return [];
       })
     ).subscribe((res: ResultWapper<ITeams>) => {
       if(res.meta) {
         this.franchises = res.data;
-        this.shouldShowProgress = false;
       } else  {
         console.error('Error during the recovery of teams');
       }
@@ -55,7 +52,6 @@ export class FranchisesComponent implements OnInit {
     this.teamsOptionsSubscription = 
     this._franchisesService.getTeams().pipe(
       catchError( error =>  {
-        this.shouldShowProgress = false;
         console.error('Error during the search of franchises', error);
         return [];
       })
@@ -65,10 +61,8 @@ export class FranchisesComponent implements OnInit {
         let franchisesFull = res.data;
         console.log(franchisesFull);
         this.getOptions(franchisesFull);
-        this.shouldShowProgress = false;
 
       } else {
-        this.shouldShowProgress = false;
         console.error('Error during the recovery of teams');
 
       }
@@ -79,7 +73,6 @@ export class FranchisesComponent implements OnInit {
     this.teamsSubscription = 
     this._franchisesService.getTeams().pipe(
       catchError( error =>  {
-        this.shouldShowProgress = false;
         console.error('Error during the search of franchises', error);
         return [];
       })
@@ -88,10 +81,8 @@ export class FranchisesComponent implements OnInit {
 
         this.franchises = res.data;
         this.getOptions(this.franchises);
-        this.shouldShowProgress = false;
 
       } else {
-        this.shouldShowProgress = false;
         console.error('Error during the recovery of teams');
 
       }
@@ -119,27 +110,21 @@ export class FranchisesComponent implements OnInit {
   }
 
   filterOptions() {
-    this.shouldShowProgress = true;
     let newList = this._franchisesService.getTeamById(this.filterValue).pipe(
       catchError( error =>  {
-        this.shouldShowProgress = false;
         console.error('Error during the search of franchises', error);
         return []
       })
     ).subscribe((res: any) => {
-      this.shouldShowProgress = false;
       this.franchises = [res.data];
     })
   }
 
   loadMore() {
     this.page += 1;
-    this.shouldShowProgress = true;
-
     this._franchisesService.getPagination(this.page, this.perPage)
       .pipe(
         catchError(error => {
-          this.shouldShowProgress = false;
           console.error('Error when getting page content', error);
           return []
         })
@@ -147,7 +132,6 @@ export class FranchisesComponent implements OnInit {
       .subscribe( (res: any) => {
         const pageContent: ITeams[] = res.data;
         this.franchises = this.franchises.concat(pageContent);
-        this.shouldShowProgress = false;
       })
   }
 
