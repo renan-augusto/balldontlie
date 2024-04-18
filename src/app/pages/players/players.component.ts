@@ -20,8 +20,6 @@ export class PlayersComponent implements OnInit {
   players: IPlayers[] = [];
   fields: PoDynamicField[] = playersFields;
 
-  loading = signal(false);
-
   next_cursor: number = 0;
   per_page: number = 10;
   
@@ -30,14 +28,12 @@ export class PlayersComponent implements OnInit {
   }
 
   getPlayersPaginated() {
-    this.loading.set(true);
     this.playersSubscription = this._playersService.getPlayersPaginated(this.next_cursor, this.per_page).pipe(
       catchError( error => {
         console.error('Error during the search of players', error);
         return [];
       })
     ).subscribe((res: ResultWapper<IPlayers>) => {
-      this.loading.set(false);
       if(res.meta) {
         this.players = res.data;
         if(this.players.length > 0) {
@@ -47,7 +43,6 @@ export class PlayersComponent implements OnInit {
           }
         }
       } else {
-        this.loading.set(false);
         console.error('Error during the recovery of players');
       }
     })
