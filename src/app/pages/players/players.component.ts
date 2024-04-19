@@ -1,4 +1,5 @@
 import { Component, OnInit, signal } from '@angular/core';
+import { PoNotificationService } from '@po-ui/ng-components';
 import { PoDynamicField } from '@po-ui/ng-components/lib/components/po-dynamic/po-dynamic-field.interface';
 import { Subscription, catchError } from 'rxjs';
 import { PlayersService } from 'src/app/core/players.service';
@@ -13,7 +14,9 @@ import { IPlayers } from 'src/app/models/players.model';
 })
 export class PlayersComponent implements OnInit {
   
-  constructor(private _playersService: PlayersService) {}
+  constructor(private _playersService: PlayersService,
+    public poNotification: PoNotificationService
+  ) {}
 
   private playersSubscription: Subscription | undefined;
   
@@ -22,9 +25,34 @@ export class PlayersComponent implements OnInit {
 
   next_cursor: number = 0;
   per_page: number = 10;
+  search = "";
+  inputSearch: string = "";
+  showBack: boolean = false;
+  showLoadMore: boolean = false;
+  buttonloadMore: boolean = false;
+
   
   ngOnInit(): void {
     this.getPlayersPaginated();
+    this.inputSearch = ""
+  }
+
+  getSearch(){
+    this.playersSubscription = this._playersService.searchPlayer(this.search).pipe(
+      catchError(error => {
+        console.log("Unable to find your search", error);
+        return[]
+      })
+    ).subscribe((res: ResultWapper<IPlayers>) => {
+      if(res.data.length > 0){
+        this.players = res.data;
+        this.showBack = true
+      }
+      else{
+        this.poNotification.warning("Jogador não encontrado")
+        this.inputSearch = "";
+      }
+    });
   }
 
   getPlayersPaginated() {
@@ -35,7 +63,7 @@ export class PlayersComponent implements OnInit {
       })
     ).subscribe((res: ResultWapper<IPlayers>) => {
       if(res.meta) {
-        this.players = res.data;
+        this.players = res.data.concat(res.data);
         if(this.players.length > 0) {
           for( let p of this.players) {
             p.weight = this.getWeightInKilos(p.weight);
@@ -67,6 +95,15 @@ export class PlayersComponent implements OnInit {
   }
 
   onSearchEvent(event: any) {
-    console.log(event);
+    this.search = event;
+  }
+
+  backHome(){
+  this.next_cursor = 0;
+  this.per_page= 10;
+  this.search = "";
+  this.inputSearch = "";
+  this.showBack = false;
+  this.getPlayersPaginated();
   }
 }
