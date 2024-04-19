@@ -22,7 +22,7 @@ export class PlayersComponent implements OnInit {
   
   players: IPlayers[] = [];
   fields: PoDynamicField[] = playersFields;
-
+ 
   next_cursor: number = 0;
   per_page: number = 10;
   search = "";
@@ -36,7 +36,7 @@ export class PlayersComponent implements OnInit {
     this.getPlayersPaginated();
     this.inputSearch = ""
   }
-
+  
   getSearch(){
     this.playersSubscription = this._playersService.searchPlayer(this.search).pipe(
       catchError(error => {
