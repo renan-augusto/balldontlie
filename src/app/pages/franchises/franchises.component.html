@@ -30,12 +30,12 @@
         </div>
     </section>
 
-    <div class="po-mt-2 po-mb-2 po-ml-2 po-mr-2" *ngIf="franchises.length > 1">
-        <po-button 
-            p-size="large" 
-            p-label="Carregar mais" 
-            (p-click)="loadMore()"
-            [p-disabled]="true"
-        ></po-button>
+    <div class="paginator po-mt-2 po-mb-2 po-ml-2 po-mr-2" *ngIf="franchises.length > 1">
+        <p-paginator
+                (onPageChange)="paginate($event)" 
+                [first]="first"
+                [rows]="rows" 
+                [totalRecords]="franchisesBackup.length"
+            ></p-paginator>
     </div>
 </div>

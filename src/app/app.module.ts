@@ -21,7 +21,7 @@ import { PlayersComponent } from './pages/players/players.component';
 import { FranchisesComponent } from './pages/franchises/franchises.component';
 import { LoadingOverlayComponent } from './shared/loading-overlay/loading-overlay.component';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
-
+import { PaginatorModule } from 'primeng/paginator';
 
 
 @NgModule({
@@ -35,7 +35,6 @@ import { LoaderInterceptor } from './interceptors/loader.interceptor';
     PlayersComponent,
     FranchisesComponent,
     LoadingOverlayComponent,
-    
   ],
   imports: [
     BrowserModule,
@@ -54,6 +53,7 @@ import { LoaderInterceptor } from './interceptors/loader.interceptor';
     FontAwesomeModule,
     PoModalModule,
     PoLoadingModule,
+    PaginatorModule
   ],
   providers: [
     {

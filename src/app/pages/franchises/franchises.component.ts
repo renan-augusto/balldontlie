@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { PoDynamicViewField, PoSelectOption } from '@po-ui/ng-components';
 import { Subscription, catchError } from 'rxjs';
 import { TeamsService } from 'src/app/core/teams.service';
@@ -6,22 +6,32 @@ import { IResultWapperGeneral, ResultWapper } from 'src/app/models/common.model'
 import { teamsFields } from 'src/app/models/fields.model';
 import { ITeams } from 'src/app/models/teams.model';
 
+
+interface PageEvent {
+  first: number;
+  rows: number;
+  page: number;
+  pageCount: number;
+}
+
 @Component({
   selector: 'app-franchises',
   templateUrl: './franchises.component.html',
   styleUrls: ['./franchises.component.css']
 })
 export class FranchisesComponent implements OnInit {
-
   constructor(private _franchisesService: TeamsService) {}
 
   franchises: ITeams[] = [];
+  franchisesBackup: ITeams[] = [];
   franchisesForOptions: ITeams[] =[];
   franchisesOptions: PoSelectOption[] = [];
   filterValue: string | number | PoSelectOption = "";
-  page: number = 1;
-  perPage: number = 5;
   fields: PoDynamicViewField[] = teamsFields;
+  first: number = 0;
+  rows: number = 5;
+  
+  
 
   private teamsSubscription: Subscription | undefined;
   private teamsOptionsSubscription: Subscription | undefined;
@@ -49,15 +59,13 @@ export class FranchisesComponent implements OnInit {
   }
 
   getFullTeamsOptions() {
-    this.teamsOptionsSubscription = 
-    this._franchisesService.getTeams().pipe(
+    this.teamsOptionsSubscription = this._franchisesService.getTeams().pipe(
       catchError( error =>  {
         console.error('Error during the search of franchises', error);
         return [];
       })
     ).subscribe((res: IResultWapperGeneral<ITeams>) => {
       if(res) {
-
         let franchisesFull = res.data;
         console.log(franchisesFull);
         this.getOptions(franchisesFull);
@@ -70,18 +78,18 @@ export class FranchisesComponent implements OnInit {
   }
 
   getTeams() {
-    this.teamsSubscription = 
-    this._franchisesService.getTeams().pipe(
+    this.teamsSubscription = this._franchisesService.getTeams().pipe(
       catchError( error =>  {
         console.error('Error during the search of franchises', error);
         return [];
       })
     ).subscribe((res: IResultWapperGeneral<ITeams>) => {
       if(res) {
-
-        this.franchises = res.data;
-        this.getOptions(this.franchises);
-
+        this.franchisesBackup = res.data;
+        this.franchises = this.franchisesBackup.slice(0, 4);
+        this.getOptions(this.franchisesBackup);
+        
+        
       } else {
         console.error('Error during the recovery of teams');
 
@@ -99,6 +107,12 @@ export class FranchisesComponent implements OnInit {
     } else {
       return
     }
+  }
+
+  paginate(event: any){
+    console.log(event);
+    let next = (event.first + event.rows) - 1;
+    return this.franchises = this.franchisesBackup.slice(event.first, next);   
   }
 
   onChangeFilter(event: PoSelectOption): void {
@@ -120,19 +134,24 @@ export class FranchisesComponent implements OnInit {
     })
   }
 
-  loadMore() {
-    this.page += 1;
-    this._franchisesService.getPagination(this.page, this.perPage)
-      .pipe(
-        catchError(error => {
-          console.error('Error when getting page content', error);
-          return []
-        })
-      )
-      .subscribe( (res: any) => {
-        const pageContent: ITeams[] = res.data;
-        this.franchises = this.franchises.concat(pageContent);
-      })
+  // loadMore() {
+  //   this.page += 1;
+  //   this._franchisesService.getPagination(this.page, this.perPage)
+  //     .pipe(
+  //       catchError(error => {
+  //         console.error('Error when getting page content', error);
+  //         return []
+  //       })
+  //     )
+  //     .subscribe( (res: any) => {
+  //       const pageContent: ITeams[] = res.data;
+  //       this.franchises = this.franchises.concat(pageContent);
+  //     })
+  // }
+
+  onPageChange(event: PageEvent) {
+    this.first = event.first;
+    this.rows = event.rows;
   }
 
 
