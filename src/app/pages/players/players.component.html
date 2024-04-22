@@ -1,7 +1,8 @@
 <div class="ml-4rem">  
     <main class="players-container">  
         <div class="title-container po-mt-2 po-mb-2 po-ml-2 po-mr-2">
-        <h1 class="po-font-title">Jogadores NBA</h1>  </div>
+            <h1 class="po-font-title">Jogadores NBA</h1>  
+        </div>
 
         <div class="search-container">  
             <div class="search">  
@@ -29,13 +30,11 @@
                 <div class="button-back" *ngIf="showBack">
                     <po-button 
                         p-label="buttonBack" 
-                        (p-click)="backhome()"
+                        (p-click)="backHome()"
                         p-label="Voltar"
                         name="back-button"
                     > </po-button>
                 </div>
-
-                
             </div>
         </div>  
         <section class="players-list-container">  
@@ -46,6 +45,15 @@
                     [fields]="fields"
                 ></app-card>
             </div>  
+
+            <div class="button-loadMore" >
+                <po-button 
+                    p-label="buttonLoadMore" 
+                    (p-click)="getPlayersPaginated()"
+                    p-label="Carregar Mais"
+                    name="loadMore-button"
+                > </po-button>
+            </div>
         </section>  
     </main>  
 </div> 

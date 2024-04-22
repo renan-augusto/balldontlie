@@ -29,10 +29,12 @@ export class PlayersComponent implements OnInit {
   inputSearch: string = "";
   showBack: boolean = false;
   showLoadMore: boolean = false;
+  buttonloadMore: boolean = false;
 
   
   ngOnInit(): void {
     this.getPlayersPaginated();
+    this.inputSearch = ""
   }
   
   getSearch(){
@@ -61,7 +63,7 @@ export class PlayersComponent implements OnInit {
       })
     ).subscribe((res: ResultWapper<IPlayers>) => {
       if(res.meta) {
-        this.players = res.data;
+        this.players = res.data.concat(res.data);
         if(this.players.length > 0) {
           for( let p of this.players) {
             p.weight = this.getWeightInKilos(p.weight);
@@ -96,7 +98,7 @@ export class PlayersComponent implements OnInit {
     this.search = event;
   }
 
-  backhome(){
+  backHome(){
   this.next_cursor = 0;
   this.per_page= 10;
   this.search = "";

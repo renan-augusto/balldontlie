@@ -13,32 +13,32 @@ export class PlayersService {
 
   private baseUrl = environment.api;
 
-  private header: HttpHeaders = new HttpHeaders({
+  private _header: HttpHeaders = new HttpHeaders({
     'Authorization': environment.header.apiKey
   })
 
   getAllPlayers() {
-    return this.http.get<ResultWapper<IPlayers>>(`${this.baseUrl}players`, {headers: this.header});
+    return this.http.get<ResultWapper<IPlayers>>(`${this.baseUrl}players`, {headers: this._header});
   }
 
   getPlayerById(id: any) {
-    return this.http.get<IPlayers>(`${this.baseUrl}players/${id}`, {headers: this.header});
+    return this.http.get<IPlayers>(`${this.baseUrl}players/${id}`, {headers: this._header});
   }
 
-  getPlayersPaginated(next_cursor: number | string, per_page: number | string) {
-    return this.http.get<ResultWapper<IPlayers>>(`${this.baseUrl}players/?next_cursor=${next_cursor}&per_page=${per_page}`, {
-      headers: this.header
+  getPlayersPaginated(cursor: number, per_page: number) {
+    return this.http.get<ResultWapper<IPlayers>>(`${this.baseUrl}players?per_page=${per_page}&cursor=${cursor}`, {
+      headers: this._header
     })
   };
 
   searchPlayer(search: string) {
     return this.http.get<ResultWapper<IPlayers>>(`${this.baseUrl}players/?search=${search}`, {
-      headers: this.header
+      headers: this._header
     })
   };
 
   getPlayersByTeamsId(teamId: number) {
-    return this.http.get<ResultWapper<IPlayers>>(`${this.baseUrl}players/?teams_ids[]=${teamId}`, {headers: this.header})
+    return this.http.get<ResultWapper<IPlayers>>(`${this.baseUrl}players/?teams_ids[]=${teamId}`, {headers: this._header})
   }
 
 }
