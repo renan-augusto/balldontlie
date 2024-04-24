@@ -23,7 +23,7 @@ export class PlayersComponent implements OnInit {
   players: IPlayers[] = [];
   fields: PoDynamicField[] = playersFields;
  
-  next_cursor: number = 0;
+  next_cursor: number = 10;
   per_page: number = 10;
   search = "";
   inputSearch: string = "";
@@ -34,7 +34,8 @@ export class PlayersComponent implements OnInit {
   
   ngOnInit(): void {
     this.getPlayersPaginated();
-    this.inputSearch = ""
+    this.inputSearch = "";
+    this.showLoadMore = true;
   }
   
   getSearch(){
@@ -47,11 +48,13 @@ export class PlayersComponent implements OnInit {
       if(res.data.length > 0){
         this.players = res.data;
         this.showBack = true
+        this.showLoadMore = false;
       }
       else{
         this.poNotification.warning("Jogador não encontrado")
         this.inputSearch = "";
       }
+      
     });
   }
 
@@ -62,36 +65,41 @@ export class PlayersComponent implements OnInit {
         return [];
       })
     ).subscribe((res: ResultWapper<IPlayers>) => {
-      if(res.meta) {
-        this.players = res.data.concat(res.data);
-        if(this.players.length > 0) {
-          for( let p of this.players) {
-            p.weight = this.getWeightInKilos(p.weight);
-            p.height = this.getHeightInMeters(p.height);
-          }
-        }
+      if(res.data.length > 0) {
+        //this.players = res.data.concat(res.data);
+        this.players = this.players.concat(res.data)
+        this.players = this.players.map((player) => ({
+            ...player,
+            height: this.getHeightInMeters(player.height),
+            weight: this.getWeightInKilos(player.weight)
+          })
+        );
       } else {
         console.error('Error during the recovery of players');
+      
+      }
+
+      if(res.meta.next_cursor){
+        this.next_cursor = res.meta.next_cursor;
       }
     })
   }
   
   getWeightInKilos(weight: string) {
-    let parsedWeight: number = parseFloat(weight);
-    parsedWeight = Math.round(parsedWeight * 0.45359237);
-    return `${parsedWeight.toString()} kg` ;
+    const parsedWeight: number = parseFloat(weight);
+    const weightInKilos: number = Math.round(parsedWeight * 0.675);
+    return `${weightInKilos} kg`;
   }
 
   getHeightInMeters(height: string) {
-    let [feet, inches] = height.split('-').map(Number);
+    const [feet, inches] = height.split('-').map(Number);
 
-    let totalInches = feet * 12 + inches;
-    let toMeters = totalInches * 0.0254;
+    const totalInches = feet * 12 + inches;
+    const toMeters = totalInches * 0.0254;
 
-    let roundedMeters = toMeters.toFixed(2);
+    const roundedMeters = toMeters.toFixed(2);
 
-    return `${roundedMeters} metros`
-
+    return `${roundedMeters} metros`;
   }
 
   onSearchEvent(event: any) {
@@ -99,11 +107,13 @@ export class PlayersComponent implements OnInit {
   }
 
   backHome(){
+  window.scrollTo(0, 0);
   this.next_cursor = 0;
   this.per_page= 10;
   this.search = "";
   this.inputSearch = "";
   this.showBack = false;
   this.getPlayersPaginated();
+  this.showLoadMore = true;
   }
 }

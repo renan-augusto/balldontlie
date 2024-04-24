@@ -46,13 +46,22 @@
                 ></app-card>
             </div>  
 
-            <div class="button-loadMore" >
-                <po-button 
-                    p-label="buttonLoadMore" 
-                    (p-click)="getPlayersPaginated()"
-                    p-label="Carregar Mais"
-                    name="loadMore-button"
-                > </po-button>
+
+            <div class="button-loadMore">
+                <div *ngIf="showLoadMore; else back">
+                    <po-button 
+                        (p-click)="getPlayersPaginated()"
+                        p-label="Carregar Mais"
+                        name="loadMore-button"
+                    ></po-button>
+                </div>
+                <ng-template #back>
+                    <po-button
+                        p-label="Voltar"
+                        name="back-button"
+                        (p-click)="backHome()"
+                    ></po-button>
+                </ng-template>
             </div>
         </section>  
     </main>  
