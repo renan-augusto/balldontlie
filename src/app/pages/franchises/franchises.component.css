@@ -9,3 +9,7 @@
 .clean-filter {
     cursor: pointer;
 }
+
+.button-top{
+    width: fit-content;
+}

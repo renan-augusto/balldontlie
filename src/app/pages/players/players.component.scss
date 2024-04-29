@@ -31,6 +31,7 @@
             padding-bottom: 1rem;
             margin-left: 1rem;
         }
+ 
     }
     .title-container {
         display: flex;
@@ -38,6 +39,16 @@
         justify-content: center;
     }
 }
+
+.buttons-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 5rem;
+    margin-right: 5rem;
+}
+
 .search-container {
     min-width: 35%;
     max-width: 35%;

@@ -5,20 +5,34 @@
     </div>
     <div class="filter-container po-mt-2 po-mb-2 po-ml-2 po-mr-2">
         <div class="select-container">
-            <app-select 
+            <!-- <app-select 
                 [options]="franchisesOptions" 
                 placeholder="Selecione uma franquia" 
-                title="Franquias" 
+                title="Franquias"
+                name="selectedFranchise"
+                [ngModel]="selectedFranchise"
+                (ngModelChange)="selectedFranchise = $event"
                 (selected)="onChangeFilter($event)" 
                 (change)="filterOptions()"
-            ></app-select>
+            ></app-select> -->
+
+            <po-combo 
+                name="selectedFranchise"
+                p-placeholder="Selecione uma franquia" 
+                [p-options]="franchisesOptions" 
+                (p-change)="onChangeFilter($event)"
+                
+            > </po-combo>
         </div>
+
 
         <div>
-            <po-button p-label="Limpar filtros" (click)="onClearFilter()"></po-button>
+            <po-button
+                p-label="Limpar filtros" 
+                (click)="onClearFilter()"
+            ></po-button>
         </div>
     </div>
-
 
     <section class="card-container">
         <div *ngFor="let f of franchises">
@@ -29,6 +43,14 @@
             </app-card>
         </div>
     </section>
+
+    <div class="ml-1rem">
+        <po-button 
+            (p-click)="backtop()"
+            p-label="Voltar ao Tapo"
+            name="backtop-button"
+        ></po-button>
+    </div>
 
     <div class="paginator po-mt-2 po-mb-2 po-ml-2 po-mr-2" *ngIf="franchises.length > 1">
         <p-paginator

@@ -116,4 +116,8 @@ export class PlayersComponent implements OnInit {
   this.getPlayersPaginated();
   this.showLoadMore = true;
   }
+  
+  backtop(){
+    window.scrollTo(0, 0);
+  }
 }
