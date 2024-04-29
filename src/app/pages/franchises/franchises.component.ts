@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
-import { PoDynamicViewField, PoSelectOption } from '@po-ui/ng-components';
+import { PoComboComponent, PoComboOption, PoDynamicViewField, PoSelectOption } from '@po-ui/ng-components';
 import { Subscription, catchError } from 'rxjs';
 import { TeamsService } from 'src/app/core/teams.service';
 import { IResultWapperGeneral, ResultWapper } from 'src/app/models/common.model';
@@ -25,11 +25,13 @@ export class FranchisesComponent implements OnInit {
   franchises: ITeams[] = [];
   franchisesBackup: ITeams[] = [];
   franchisesForOptions: ITeams[] =[];
-  franchisesOptions: PoSelectOption[] = [];
+  franchisesOptions: PoComboOption[] = [];
+  selectedFranchise: PoComboOption = {value: '', label: ''};
   filterValue: string | number | PoSelectOption = "";
   fields: PoDynamicViewField[] = teamsFields;
   first: number = 0;
   rows: number = 5;
+  
   
   
 
@@ -40,11 +42,11 @@ export class FranchisesComponent implements OnInit {
     // this.getTeamsPaginated(this.page, this.perPage);
     this.getTeams();
     this.getFullTeamsOptions();
+    
   }
 
   getTeamsPaginated(page: number, per_page: number) {
-    this.teamsSubscription = 
-    this._franchisesService.getPagination(page, per_page).pipe(
+    this.teamsSubscription = this._franchisesService.getPagination(page, per_page).pipe(
       catchError( error => {
         console.error('Error during the search of franchises', error);
         return [];
@@ -98,12 +100,13 @@ export class FranchisesComponent implements OnInit {
   }
 
   getOptions(franchises: any) {
+
     if(franchises.length > 0) {
       this.franchisesOptions = franchises.map((a: any) => ({
         label: a.name,
         value: a.id
       }));
-      return this.franchisesOptions;
+      return this.franchisesOptions as PoComboOption[];
     } else {
       return
     }
@@ -119,11 +122,13 @@ export class FranchisesComponent implements OnInit {
     this.filterValue = event;
   }
 
-  onClearFilter() {
-    this.getTeamsPaginated(1, 5);
+  onClearFilter(): void {
+    this.selectedFranchise = {value: '', label: ''}
+    this.franchisesOptions = [];
+    this.getTeams();
   }
 
-  filterOptions() {
+  filterOptions(event: any) {
     let newList = this._franchisesService.getTeamById(this.filterValue).pipe(
       catchError( error =>  {
         console.error('Error during the search of franchises', error);
@@ -134,20 +139,9 @@ export class FranchisesComponent implements OnInit {
     })
   }
 
-  // loadMore() {
-  //   this.page += 1;
-  //   this._franchisesService.getPagination(this.page, this.perPage)
-  //     .pipe(
-  //       catchError(error => {
-  //         console.error('Error when getting page content', error);
-  //         return []
-  //       })
-  //     )
-  //     .subscribe( (res: any) => {
-  //       const pageContent: ITeams[] = res.data;
-  //       this.franchises = this.franchises.concat(pageContent);
-  //     })
-  // }
+  backtop(){
+    window.scrollTo(0, 0);
+  }
 
   onPageChange(event: PageEvent) {
     this.first = event.first;

@@ -31,29 +31,43 @@
                     <po-button 
                         p-label="buttonBack" 
                         (p-click)="backHome()"
-                        p-label="Voltar"
+                        p-label="Reiniciar Pesquisa"
                         name="back-button"
                     > </po-button>
                 </div>
             </div>
         </div>  
+        
         <section class="players-list-container">  
             <div *ngFor="let p of players"> 
                 <app-card 
                     [title]="p.first_name + ' ' + p.last_name"
-                    [value]="p"
+                    [value]="p"utton
                     [fields]="fields"
                 ></app-card>
             </div>  
-
-            <div class="button-loadMore" >
+        </section>
+    </main>  
+        <div class="buttons-container">
+            <div *ngIf="showLoadMore; else back">
                 <po-button 
-                    p-label="buttonLoadMore" 
                     (p-click)="getPlayersPaginated()"
                     p-label="Carregar Mais"
                     name="loadMore-button"
-                > </po-button>
+                ></po-button>
             </div>
-        </section>  
-    </main>  
+            <ng-template #back>
+                <po-button
+                    p-label="Voltar"
+                    name="back-button"
+                    (p-click)="backHome()"
+                ></po-button>
+            </ng-template>
+
+            <po-button 
+                (p-click)="backtop()"
+                p-label="Voltar ao Tapo"
+                name="backtop-button"
+            ></po-button>
+        </div>
 </div> 

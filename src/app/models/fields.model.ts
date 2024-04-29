@@ -13,7 +13,5 @@ export const playersFields: PoDynamicViewField[] = [
     {property: 'last_name', label: 'Sobrenome', gridColumns: 2},
     {property: 'country', label: 'País de origem', gridLgColumns: 2},
     {property: 'position', label: 'Posição', gridColumns: 2, divider: 'Atributos'},
-    {property: 'height', label: 'Altura', gridColumns: 2},
-    {property: 'weight', label: 'Peso', gridColumns: 2},
     {property: 'jersey_number', label: 'Número', gridLgColumns: 2},
 ]
